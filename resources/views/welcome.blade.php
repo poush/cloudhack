@@ -85,8 +85,8 @@
                 </div>
                 </form>
                 <form>
-                        <div class="input-group" >
-                        <input id="msg" type="text" class="form-control" name="msg" placeholder=" Enter URL" class="col-sm-8 col-sm-offset-6">
+                        <div class="input-group center-block" >
+                        <input id="msg" type="text" class="form-control input-lg" name="msg" placeholder=" Enter URL" style="margin-bottom: 20px;"class="col-sm-8 col-sm-offset-6">
                         </div>
                 </form>
                 <br>
@@ -104,8 +104,8 @@
                     <br>
                     <br>
                     <form>
-                        <div class="input-group">
-                         <input id="msg" type="text" class="form-control" name="msg" placeholder="" readonly>
+                        <div class="input-group center-block">
+                         <input id="msg" type="text" class="form-control input-lg" style="margin-bottom: 20px;" name="msg" placeholder="" readonly>
                         </div>
                     </form>
                     <br>
