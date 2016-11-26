@@ -117,7 +117,7 @@
 
             $('#msg').keyup(function(e){
                 data = $('#msg').val();
-                post = "[![Deploy to DO](http://67.205.151.140/img/button.png)]("+ data +")";
+                post = "[![Deploy to DO](http://67.205.151.140/img/button.png)](http://67.205.151.140/github?url="+ data +")";
                 $('#linkto').val(post);
             })
 
