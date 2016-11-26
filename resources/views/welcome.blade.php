@@ -86,9 +86,7 @@
                 </form>
                 <form>
                         <div class="input-group" >
-                        <div class="container center_div"></div>
-                        <div class="col-xs-8 col-xs-offset-2"></div>
-                        <input id="msg" type="text" class="form-control" name="msg" placeholder=" Enter URL">
+                        <input id="msg" type="text" class="form-control" name="msg" placeholder=" Enter URL" class="col-xs-8 col-xs-offset-2">
                         </div>
                 </form>
                 <br>
