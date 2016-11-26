@@ -118,7 +118,7 @@
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </form>
- -->                    <button type="button" class="btn btn-info btn-lg btn-primary"> Create My DO </button>
+ -->                    <button type="button" class="btn btn-info btn-lg btn-primary"> Create My DO Button </button>
                     <br>
                     <br>
                     <form>
