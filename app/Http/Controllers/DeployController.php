@@ -77,7 +77,7 @@ class DeployController extends Controller
         $user->save();
 
         $request->session()->forget('url');
-        
+
         return redirect('droplets')
                                 ->with('message', 'Deployed !')
                                 ->with('droplet', $created->id);
@@ -90,6 +90,10 @@ class DeployController extends Controller
         $droplets = $user->droplets()->get();
 
         return view('droplets',['droplets' => $droplets]);
+
+    }
+
+    public function delete(Request $request){
 
     }
 
