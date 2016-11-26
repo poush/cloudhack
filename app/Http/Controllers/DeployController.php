@@ -16,6 +16,7 @@ class DeployController extends Controller
         $github = $request->session()->get('url');
         $github = parse_url($github);
 
+        $manifest = "";
         try {
             $client = new \GuzzleHttp\Client([
                         "config"  => [
@@ -29,10 +30,11 @@ class DeployController extends Controller
         
         $res = $client->request('GET', "http://raw.githubusercontent.com". str_replace("/blob", "", $github['path']));
     
-        }catch(Exception $e){
-            redirect('../droplets')->withError('Invalid Reposirty, Ennsure there is manifest file ');
-        }
         $manifest =  $res->getBody();
+
+        }catch(\Exception $e){
+            return redirect('../droplets')->withError('Invalid Reposirty, Ensure there is manifest file ');
+        }
 
         $manifest = json_decode($manifest);
 
