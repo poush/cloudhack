@@ -6,7 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Deploy To DO</title>
-
+        <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"></script>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -96,7 +99,7 @@
                          
                           xTriggered++;
                           $.print( event.which );
-                          
+
                           });
  
                            $( "#other" ).click(function() {
