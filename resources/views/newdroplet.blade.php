@@ -14,7 +14,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>App Name</label>
-                                                    <input name="name" type="text" required="" class="form-control border-input" value="{{ preg_replace('/[^a-zA-Z]/', '', $data->name) }}" placeholder="A cool name for your application">
+                                                    <input id="appName" name="name" type="text" required="" class="form-control border-input" value="{{ preg_replace('/[^a-zA-Z]/', '', $data->name) }}" placeholder="A cool name for your application">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -76,7 +76,7 @@
                                                 </div>
                                             </div>
                                     
-                                            <div class="col-md-6">
+<!--                                             <div class="col-md-6">
                                                 <span class="form-group">
                                                     <label>Backups</label>
                                                     <input name="backups" type="checkbox" class="border-input" placeholder="Company">
@@ -84,7 +84,7 @@
                                                         <span><b> Warning - </b> This would cost you additional <b>20%</b> of your DigitalOcean droplet price.</span>
                                                     </div>
                                                 </span>
-                                            </div>
+                                            </div> -->
                                             <div class="col-md-12">
                                                 <div class="form-group">
                    
@@ -106,4 +106,12 @@
         </div>
     </div>
 </div>
+
+<script>
+	$('#appName').keyup(function(ev){
+		val = $(this).val();
+		val = val.replace(/[^a-zA-Z0-9]/g, '');
+		$(this).val(val);
+	})
+</script>
 @endsection

@@ -76,7 +76,11 @@ class DeployController extends Controller
         $droplet->save();
         $user->save();
 
-        return redirect('droplets')->with('message', 'Deployed !')->with('droplet', $created->id);
+        $request->session()->forget('url');
+        
+        return redirect('droplets')
+                                ->with('message', 'Deployed !')
+                                ->with('droplet', $created->id);
 
 
     }

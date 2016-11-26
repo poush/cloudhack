@@ -29,7 +29,7 @@ Route::get('/dologin', function () {
 	return Socialite::with('digitalocean')->scopes(['read write'])->redirect();
 });
 
-Route::get('/afterdo', function() {
+Route::get('/afterdo', function(Request $request) {
 	$data = Socialite::driver('digitalocean')->user();
 	$user = App\User::where('email', $data->email)->first();
 
@@ -44,8 +44,10 @@ Route::get('/afterdo', function() {
 	$user->save();
 
 	Auth::login($user);
-
-	return redirect('deploy/info');
+	if( $request->session()->has('url') )
+		return redirect('deploy/info');
+	else
+		return redirect('droplets');
 
 });
 
