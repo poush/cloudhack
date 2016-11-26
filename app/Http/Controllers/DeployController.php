@@ -167,8 +167,7 @@ class DeployController extends Controller
         $droplet = $digitalocean->droplet();
 
         $droplet123 = $droplet->getById($id);
-        dd($drop->repo);
-        
+
         $fp = fopen( public_path()."/logs/$id.txt" ,"w");
         $data = $this->actualDeploy( $drop->repo, $droplet123->networks[0]->ipAddress ) ;
         fwrite($fp, json_encode($data) );
