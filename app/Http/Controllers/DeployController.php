@@ -11,8 +11,7 @@ use App\Droplet;
 
 class DeployController extends Controller
 {
-    public function info(Request $request){
-
+    public function getManifest($request){
         $github = $request->session()->get('url');
         $github = parse_url($github);
 
@@ -36,7 +35,15 @@ class DeployController extends Controller
             return redirect('../droplets')->withError('Invalid Reposirty, Ensure there is manifest file ');
         }
 
+
         $manifest = json_decode($manifest);
+
+        return $manifest;
+    }
+
+    public function info(Request $request){
+
+        $manifest = $this->getManifest($request);
 
         return view('newdroplet', ['data' => $manifest]);
     }
@@ -53,33 +60,44 @@ class DeployController extends Controller
         $key = $digitalocean->key();
         $keys = $key->getAll();
 
+
         $ssh = null;
         foreach ($keys as $k ) {
             if ($k->publicKey == $request->ssh)
                     $ssh = $k->id;
         }
+
         if( is_null($ssh) )
             $ssh = $key->create('abc', $request->ssh)->id;
 
         $envssh = null;
+        // dd($keys);
+        // dd(env('ssh'));
 
-        foreach ($keys as $k ) {
-            if ($k->publicKey == env('ssh'))
-                    $envssh = $k->id;
-        }
-        if( is_null($envssh) )
-            $envssh = $key->create('poush', $request->ssh)->id;
+        // foreach ($keys as $k ) {
+        //     if ($k->publicKey == env('ssh'))
+        //             dd("true");
+        //             // $envssh = $k->id;
+        // }
+        // dd($envssh);
+        // if( is_null($envssh) )
+        //     $envssh = $key->create('poush', $request->ssh)->id;
 
         $droplet = $digitalocean->droplet();
 
-        $S = [];
-        if( $ssh == $envssh )
-            $S = [$ssh];
-        else
-            $S = [$ssh, $envssh];
+        $S = [$ssh];
+        // if( $ssh == $envssh )
+        //     $S = [$ssh];
+        // else
+        //     $S = [$ssh, $envssh];
         // $userdata = $this->getScript($request->image, $request->repository) . $this->getApp('app') . $request->postcmd;
-        
-        $created = $droplet->create( $request->name , $request->location , $request->size, $request->image, false , $request->ipv6, false, $S);
+        $manifest= $this->getManifest($request);
+        $userdata = "cd /var/www/html
+                git pull $manifest->repository
+                composer install
+                ";
+
+        $created = $droplet->create( $request->name , $request->location , $request->size, $request->image, false , $request->ipv6, false, $S, $userdata);
 
         $array = [
         'doid' => $created->id,
@@ -92,15 +110,14 @@ class DeployController extends Controller
             $droplet->doid = $created->id;
             $droplet->name = $created->name;
             $droplet->user_id = $user->id;
-
+            $droplet->repo = $manifest->repository;
 
         $droplet->save();
         $user->save();
 
-        $request->session()->forget('url');
 
         return redirect('droplets')
-                                ->with('message', 'Deployed !')
+                                ->with('error', "Deployed! DON'T CLOSE BROWSER PROVISIONING!")
                                 ->with('droplet', $created->id);
 
 
@@ -117,7 +134,9 @@ class DeployController extends Controller
     }
 
     public function destroy($id){
-        
+        if( ! \Auth::check())
+            return redirect('login');
+
         $user = \Auth::user();
         $adapter = new BuzzAdapter($user->token);
 
@@ -134,6 +153,36 @@ class DeployController extends Controller
 
         return redirect('/droplets')->withMessage('Deleted!');
 
+    }
+
+
+    public function setup(Request $request, $id){
+        $drop = Droplet::where('doid',$id)->first();
+
+        $user = \Auth::user();
+        $adapter = new BuzzAdapter($user->token);
+
+         // create a digital ocean object with the previous adapter
+        $digitalocean = new DigitalOceanV2($adapter);
+        $droplet = $digitalocean->droplet();
+
+        $droplet123 = $droplet->getById($id);
+        dd($drop->repo);
+        
+        $fp = fopen( public_path()."/logs/$id.txt" ,"w");
+        $data = $this->actualDeploy( $drop->repo, $droplet123->networks[0]->ipAddress ) ;
+        fwrite($fp, json_encode($data) );
+        fclose($fp);
+
+        return "";
+        // $request->session()->forget('url');
+
+    }
+
+    public function actualDeploy( $repo, $ip ){
+
+        $envoy = new \App\Envoy;
+        return $envoy->run("lamp --repo=$repo --ip=$ip");
     }
 
     public function getScript( $image, $repo )

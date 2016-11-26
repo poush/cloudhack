@@ -10,7 +10,7 @@
                 </div>
             @endif
             @if( session('error') )
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" id="error">
                     {{ session('error') }}
                 </div>
             @endif
@@ -23,6 +23,7 @@
                                     <thead>
                                         <th>ID</th>
                                         <th>Name</th>
+                                        <th>Resetup</th>
                                         <th>-</th>
                                         
                                     </thead>
@@ -31,6 +32,7 @@
                                         <tr>
                                             <td> {{ $droplet->id }}</td>
                                             <td> {{ $droplet->name }}</td>
+                                            <td><a href="../setup/{{ $droplet->doid }}" target="blank">Reinitialize</td>
                                             <td><a href="../destroy/{{ $droplet->doid }}"><i class="fa fa-close"></i></td>
                                             
                                         </tr>
@@ -44,4 +46,20 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    @if( session('droplet') )
+        setTimeout(runit, 60000);
+        function runit(){
+            $("#error").html('running deployer...')
+            $.get('../setup/'+ {{ session('droplet') }}, function(data){
+                $('#error').addClass('alert-success').html('Completed Deployment, review log <a href="logs/'+ {{ session('droplet') }} + '.txt"> Here </a>');
+            }).fail(function(){
+               $.get('../setup/'+ {{ session('droplet') }}, function(data){
+                $('#error').addClass('alert-success').html('Completed Deployment, review log <a href="logs/'+ {{ session('droplet') }} + '.txt"> Here </a>'); 
+                });
+           });
+        }
+    @endif
+</script>
 @endsection
