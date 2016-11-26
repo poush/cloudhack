@@ -83,9 +83,11 @@
                     <a href="">Documentation</a>
                     <a href="https://github.com/poush/cloudhack">GitHub</a>
                 </div>
-                <textarea readonly>
-                    Enter URL To GITHUB Repository
-                </textarea>
+                  <form>
+                <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                </div>
+                </form>
                 <form>
                         <div class="input-group">
                         <input id="msg" type="text" class="form-control" name="msg" placeholder=" Enter URL">
