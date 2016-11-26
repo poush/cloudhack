@@ -71,10 +71,10 @@
     <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
-                <!-- <div class="top-right links">
+                <div class="top-right links">
                     <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
-                </div> -->
+                    <!-- <a href="{{ url('/register') }}">Register</a> -->
+                </div>
             
             @endif
 
@@ -82,58 +82,50 @@
                 <div class="title m-b-md">
                 Deploy To DO
                 </div>
-                  <form>
-                <div class="form-group">
-                <label for="exampleInputEmail1">Enter Github URL</label>
-                </div>
-                </form>
-                <form>
-                        <div class="input-group center-block" >
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Enter Github URL</label>
+                    </div>
+
+                    <div class="input-group center-block" >
                         <input id="msg" type="text" class="form-control input-lg" name="msg" placeholder=" Enter URL" style="margin-bottom: 20px;"class="col-sm-8 col-sm-offset-6">
-                        </div>
-                        <script type="text/javascript" src="/resources/events.js"></script>
+                    </div>
  
-                        <script>
-                         var xTriggered = 0;
-                         $( "#target" ).keydown(function( event ) {
-                         
-                          xTriggered++;
-                          $.print( event.which );
 
-                          });
- 
-                           $( "#other" ).click(function() {
-                           $( "#target" ).keydown();
-                           });
-                        </script>
-                </form>
                 <br>
                 <br>
+                
+                <button type="button" id="createdo" class="btn btn-info btn-lg btn-primary"> Create My DO Button </button>
+                    <br>
+                    <br>
+                    <div class="input-group center-block" id="link">
+                         <input id="linkto" type="text" class="form-control" style="margin-bottom: 20px;" readonly>
+                        <span class="help-block"> Copy and paste it to your readme file</span>
+                    </div>
 
 
-                    <!-- <form>
-                        <div class="form-control">
-                            <label for="inputurl">Enter URL To GITHUB Repository</label>
-                            <input type="url" class="form-control" id="inputurl" aria-describedby="emailHelp" placeholder="Enter URL">
-                            <small id="emailHelp" class="form-text text-muted"></small>
-                        </div>
-                    </form>
- -->                    <button type="button" class="btn btn-info btn-lg btn-primary"> Create My DO Button </button>
-                    <br>
-                    <br>
-                    <form>
-                        <div class="input-group center-block">
-                         <input id="msg" type="text" class="form-control input-lg" style="margin-bottom: 20px;" name="msg" placeholder="" readonly>
-                        </div>
-                    </form>
-                    <br>
                      <br>
                     <div class="links">
-                    <a href="">Documentation</a>
-                    <a href="https://github.com/poush/cloudhack">GitHub</a>
+                    <a href="../documentation">Documentation</a>
+                    <a href="https://github.com/poush/cloudhack" target="blank">GitHub</a>
                     </div>
                 </div>
             
         </div>
+        <script type="text/javascript">
+            $('#link').hide();
+
+            $('#msg').keyup(function(e){
+                data = $('#msg').val();
+                post = "[![Deploy to DO](http://67.205.151.140/img/button.png)]("+ data +")";
+                $('#linkto').val(post);
+            })
+
+            $('#createdo').click(function(ev){
+                ev.preventDefault();
+                $('#link').show();
+
+            })
+        </script>
     </body>
 </html>

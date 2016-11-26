@@ -1,6 +1,13 @@
-@servers(['web' => ['root@139.59.23.89']])
+@servers(['web' => ['root@$ip']])
 
-@task('deploy', ['on' => 'web'])
-	adduser poush
-	usermod -aG sudo poush
+@task('lamp', ['on' => 'web'])
+	cd /var/www/html
+	git clone $repo
 @endtask
+
+
+@task('lemp', ['on' => 'web'])
+	cd /usr/share/nginx/html
+	git clone $repo
+@endtask
+

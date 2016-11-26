@@ -11,11 +11,17 @@
 |
 */
 
-use DigitalOceanV2\Adapter\BuzzAdapter;
-use DigitalOceanV2\DigitalOceanV2;
+use Illuminate\Http\Request;
+
 
 Route::get('/', function() {
 	return view('welcome');
+});
+
+Route::get('github', function(  Request $request ) {
+	$request->session()->put( 'url' , $request->url );
+
+	return redirect("dologin");
 });
 
 Route::get('/dologin', function () {
@@ -25,15 +31,29 @@ Route::get('/dologin', function () {
 
 Route::get('/afterdo', function() {
 	$data = Socialite::driver('digitalocean')->user();
-	dd($data);	
-	$user = User::where('email', $data->email)->first();
+	$user = App\User::where('email', $data->email)->first();
 
-	// if( is_null($user) ){
-	// 	$user = 
-	// }
+	if( is_null($user) ){
+		$user = new App\User;
+		$user->email = $data->email;
+		$user->token = $data->token;
+		$user->name = is_null( $data->name ) ? 'DO User' : $user->name;
+		$user->password = Hash::make(time());
+	}
 
+	$user->save();
+
+	Auth::login($user);
+
+	return redirect('deploy/info');
 
 });
+
+Route::get('newdroplet', function() {
+	return view('newdroplet');
+});
+
+
 
 // Route::get('/admin', function(){
 
@@ -58,3 +78,9 @@ Route::get('/afterdo', function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/deploy/info', 'DeployController@info');
+
+Route::post('deploy/boot', 'DeployController@boot');
+
+Route::get('droplets', 'DeployController@show');
