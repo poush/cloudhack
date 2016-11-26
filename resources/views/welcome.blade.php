@@ -83,14 +83,23 @@
                     <a href="">Documentation</a>
                     <a href="https://github.com/poush/cloudhack">GitHub</a>
                 </div>
-                    <form>
+                <textarea readonly>
+                    Enter URL To GITHUB Repository
+                </textarea>
+                <form>
+                        <div class="input-group">
+                        <input id="msg" type="text" class="form-control" name="msg" placeholder=" Enter URL">
+                        </div>
+                </form>
+
+                    <!-- <form>
                         <div class="form-control">
                             <label for="inputurl">Enter URL To GITHUB Repository</label>
                             <input type="url" class="form-control" id="inputurl" aria-describedby="emailHelp" placeholder="Enter URL">
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </form>
-                    <button type="button" class="btn btn-info btn-lg">New Button</button>
+ -->                    <button type="button" class="btn btn-info btn-lg">New Button</button>
                     <form>
                         <div class="input-group">
                         <input id="msg" type="text" class="form-control" name="msg" placeholder="" readonly>
