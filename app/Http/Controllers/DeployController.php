@@ -102,6 +102,8 @@ class DeployController extends Controller
     }
 
     public function show(){
+        if( ! \Auth::check())
+            return redirect('login');
         $user = \Auth::user();
         $droplets = $user->droplets()->get();
 
@@ -109,7 +111,7 @@ class DeployController extends Controller
 
     }
 
-    public function delete($doid){
+    public function destroy($id){
         
         $user = \Auth::user();
         $adapter = new BuzzAdapter($user->token);
@@ -118,7 +120,7 @@ class DeployController extends Controller
         $digitalocean = new DigitalOceanV2($adapter);
         $droplet = $digitalocean->droplet();
 
-        $droplet->delete($doid);
+        $droplet->delete($id);
 
         return redirect('/droplets')->withMessage('Deleted!');
 

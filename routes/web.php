@@ -86,3 +86,5 @@ Route::get('/deploy/info', 'DeployController@info');
 Route::post('deploy/boot', 'DeployController@boot');
 
 Route::get('droplets', 'DeployController@show');
+
+Route::get('destroy/{id}', 'DeployController@destroy');

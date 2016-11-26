@@ -10,7 +10,7 @@
                 </div>
             @endif
             @if( session('error') )
-                <div class="alert alert-success">
+                <div class="alert alert-error">
                     {{ session('error') }}
                 </div>
             @endif
@@ -31,7 +31,7 @@
                                         <tr>
                                             <td> {{ $droplet->id }}</td>
                                             <td> {{ $droplet->name }}</td>
-                                            <td><a href="../destroy/{{ $droplet-> id }}"><i class="fa fa-close"></i></td>
+                                            <td><a href="../destroy/{{ $droplet->doid }}"><i class="fa fa-close"></i></td>
                                             
                                         </tr>
                                         @endforeach

@@ -26,7 +26,7 @@ class AddTokenToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->deleteColumn("token");
+            $table->dropColumn("token");
         });
     }
 }
