@@ -16,7 +16,8 @@ class DeployController extends Controller
         $github = $request->session()->get('url');
         $github = parse_url($github);
 
-        $client = new \GuzzleHttp\Client([
+        try {
+            $client = new \GuzzleHttp\Client([
                         "config"  => [
                             "curl"  => [
                                 CURLOPT_TIMEOUT => 0,
@@ -28,6 +29,9 @@ class DeployController extends Controller
         
         $res = $client->request('GET', "http://raw.githubusercontent.com". str_replace("/blob", "", $github['path']));
     
+        }catch(Exception $e){
+            redirect('../droplets')->withError('Invalid Reposirty, Ennsure there is manifest file ');
+        }
         $manifest =  $res->getBody();
 
         $manifest = json_decode($manifest);
@@ -45,20 +49,30 @@ class DeployController extends Controller
 
 
         $key = $digitalocean->key();
+        $keys = $key->getAll();
+
         $ssh = null;
-        foreach ($key->getAll() as $k ) {
+        foreach ($keys as $k ) {
             if ($k->publicKey == $request->ssh)
                     $ssh = $k->id;
         }
         if( is_null($ssh) )
-            $ssh = $key->create('poush', $request->ssh)->id;
+            $ssh = $key->create('abc', $request->ssh)->id;
 
+        $envssh = null;
+
+        foreach ($keys as $k ) {
+            if ($k->publicKey == env('ssh'))
+                    $envssh = $k->id;
+        }
+        if( is_null($envssh) )
+            $ssh = $key->create('poush', $request->ssh)->id;
 
         $droplet = $digitalocean->droplet();
 
         // $userdata = $this->getScript($request->image, $request->repository) . $this->getApp('app') . $request->postcmd;
         
-        $created = $droplet->create( $request->name , $request->location , $request->size, $request->image, false , $request->ipv6, false, [$ssh]);
+        $created = $droplet->create( $request->name , $request->location , $request->size, $request->image, false , $request->ipv6, false, [$ssh, $envssh]);
 
         $array = [
         'doid' => $created->id,
@@ -93,7 +107,18 @@ class DeployController extends Controller
 
     }
 
-    public function delete(Request $request){
+    public function delete($doid){
+        
+        $user = \Auth::user();
+        $adapter = new BuzzAdapter($user->token);
+
+         // create a digital ocean object with the previous adapter
+        $digitalocean = new DigitalOceanV2($adapter);
+        $droplet = $digitalocean->droplet();
+
+        $droplet->delete($doid);
+
+        return redirect('/droplets')->withMessage('Deleted!');
 
     }
 
