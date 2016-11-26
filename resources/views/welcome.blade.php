@@ -90,7 +90,13 @@
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </form>
-                    <button type="button" class="btn btn-info">New Button</button>
+                    <button type="button" class="btn btn-info btn-lg">New Button</button>
+                    <form>
+                        <div class="input-group">
+                        <span class="input-group-addon">Text</span>
+                        <input id="msg" type="text" class="form-control" name="msg" placeholder="" readonly>
+                        </div>
+                    </form>
                 </div>
             
         </div>
