@@ -21,7 +21,7 @@
                                         <tr>
                                             <td> {{ $droplet->id }}</td>
                                             <td> {{ $droplet->name }}</td>
-                                            <td><a href="../destroy/{{ $droplet-> id }}"><i class="ti ti-close"></i></td>
+                                            <td><a href="../destroy/{{ $droplet-> id }}"><i class="fa fa-close"></i></td>
                                             
                                         </tr>
                                         @endforeach
