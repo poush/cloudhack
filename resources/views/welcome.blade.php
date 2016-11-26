@@ -10,7 +10,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <!-- Styles -->
         <style>
             html, body {
@@ -79,10 +79,6 @@
                 <div class="title m-b-md">
                 Deploy To DO
                 </div>
-                <div class="links">
-                    <a href="">Documentation</a>
-                    <a href="https://github.com/poush/cloudhack">GitHub</a>
-                </div>
                   <form>
                 <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -101,12 +97,17 @@
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </form>
- -->                    <button type="button" class="btn btn-info btn-lg">New Button</button>
+ -->                    <button type="button" class="btn btn-info btn-lg btn-primary"> Create My DO </button>
                     <form>
                         <div class="input-group">
                         <input id="msg" type="text" class="form-control" name="msg" placeholder="" readonly>
                         </div>
                     </form>
+
+                    <div class="links">
+                    <a href="">Documentation</a>
+                    <a href="https://github.com/poush/cloudhack">GitHub</a>
+                    </div>
                 </div>
             
         </div>
