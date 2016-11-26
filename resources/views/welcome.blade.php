@@ -87,12 +87,13 @@
                 <form>
                         <div class="input-group" >
                         <div class="container center_div"></div>
+                        <div class="col-xs-8 col-xs-offset-2"></div>
                         <input id="msg" type="text" class="form-control" name="msg" placeholder=" Enter URL">
                         </div>
                 </form>
                 <br>
                 <br>
-                
+
 
                     <!-- <form>
                         <div class="form-control">
@@ -102,14 +103,18 @@
                         </div>
                     </form>
  -->                    <button type="button" class="btn btn-info btn-lg btn-primary"> Create My DO </button>
+                    <br>
+                    <br>
                     <form>
                         <div class="input-group">
                         <div class="col-xs-8 col-xs-offset-2"></div>
+                        <div class="container center_div"></div>
 
                         <input id="msg" type="text" class="form-control" name="msg" placeholder="" readonly>
                         </div>
                     </form>
-
+                    <br>
+                     <br>
                     <div class="links">
                     <a href="">Documentation</a>
                     <a href="https://github.com/poush/cloudhack">GitHub</a>
