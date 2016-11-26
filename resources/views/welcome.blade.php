@@ -88,6 +88,21 @@
                         <div class="input-group center-block" >
                         <input id="msg" type="text" class="form-control input-lg" name="msg" placeholder=" Enter URL" style="margin-bottom: 20px;"class="col-sm-8 col-sm-offset-6">
                         </div>
+                        <script type="text/javascript" src="/resources/events.js"></script>
+ 
+                        <script>
+                         var xTriggered = 0;
+                         $( "#target" ).keydown(function( event ) {
+                         
+                          xTriggered++;
+                          $.print( event.which );
+                          
+                          });
+ 
+                           $( "#other" ).click(function() {
+                           $( "#target" ).keydown();
+                           });
+                        </script>
                 </form>
                 <br>
                 <br>
