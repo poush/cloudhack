@@ -79,20 +79,19 @@
                 <div class="title m-b-md">
                 Deploy To DO
                 </div>
-
                 <div class="links">
                     <a href="">Documentation</a>
                     <a href="https://github.com/poush/cloudhack">GitHub</a>
-                    <br>
-                 <form>
-                <div class="form-control">
-                    <label for="inputurl">Add Your URL</label>
-                    <input type="url" class="form-control" id="inputurl" aria-describedby="emailHelp" placeholder="Enter URL">
-                    <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
-                </form>
+                    <form>
+                        <div class="form-control">
+                            <label for="inputurl">Enter URL To GITHUB Repository</label>
+                            <input type="url" class="form-control" id="inputurl" aria-describedby="emailHelp" placeholder="Enter URL">
+                            <small id="emailHelp" class="form-text text-muted"></small>
+                        </div>
+                    </form>
+                    <button type="button" class="btn btn-info">New Button</button>
                 </div>
-            </div>
             
         </div>
     </body>
