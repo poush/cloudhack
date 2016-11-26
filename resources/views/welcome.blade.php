@@ -81,11 +81,12 @@
                 </div>
                   <form>
                 <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
+                <label for="exampleInputEmail1">Enter Github URL</label>
                 </div>
                 </form>
                 <form>
-                        <div class="input-group">
+                        <div class="input-group" >
+                        <div class="container center_div"></div>
                         <input id="msg" type="text" class="form-control" name="msg" placeholder=" Enter URL">
                         </div>
                 </form>
@@ -100,6 +101,8 @@
  -->                    <button type="button" class="btn btn-info btn-lg btn-primary"> Create My DO </button>
                     <form>
                         <div class="input-group">
+                        <div class="container center_div"></div>
+
                         <input id="msg" type="text" class="form-control" name="msg" placeholder="" readonly>
                         </div>
                     </form>
