@@ -71,13 +71,13 @@
                     <a href="{{ url('/login') }}">Login</a>
                     <a href="{{ url('/register') }}">Register</a>
                 </div>
-        <form>
-            <div class="form-group">
-            <label for="inputurl">Add Your URL</label>
-            <input type="url" class="form-control" id="inputurl" aria-describedby="emailHelp" placeholder="Enter URL">
-            <small id="emailHelp" class="form-text text-muted">Atleast this should work</small>
-            </div>
-        </form>
+            <form>
+                <div class="form-control">
+                    <label for="inputurl">Add Your URL</label>
+                    <input type="url" class="form-control" id="inputurl" aria-describedby="emailHelp" placeholder="Enter URL">
+                    <small id="emailHelp" class="form-text text-muted">Atleast this should work</small>
+                </div>
+            </form>
             @endif
 
             <div class="content">
