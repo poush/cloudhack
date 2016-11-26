@@ -107,10 +107,7 @@
                     <br>
                     <form>
                         <div class="input-group">
-                        <div class="col-xs-8 col-xs-offset-2"></div>
-                        <div class="container "></div>
-
-                        <input id="msg" type="text" class="form-control" name="msg" placeholder="" readonly>
+                         <input id="msg" type="text" class="form-control" name="msg" placeholder="" readonly>
                         </div>
                     </form>
                     <br>
