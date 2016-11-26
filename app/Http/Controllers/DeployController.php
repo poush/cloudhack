@@ -68,13 +68,18 @@ class DeployController extends Controller
                     $envssh = $k->id;
         }
         if( is_null($envssh) )
-            $ssh = $key->create('poush', $request->ssh)->id;
+            $envssh = $key->create('poush', $request->ssh)->id;
 
         $droplet = $digitalocean->droplet();
 
+        $S = [];
+        if( $ssh == $envssh )
+            $S = [$ssh];
+        else
+            $S = [$ssh, $envssh];
         // $userdata = $this->getScript($request->image, $request->repository) . $this->getApp('app') . $request->postcmd;
         
-        $created = $droplet->create( $request->name , $request->location , $request->size, $request->image, false , $request->ipv6, false, [$ssh, $envssh]);
+        $created = $droplet->create( $request->name , $request->location , $request->size, $request->image, false , $request->ipv6, false, $S);
 
         $array = [
         'doid' => $created->id,
@@ -120,7 +125,12 @@ class DeployController extends Controller
         $digitalocean = new DigitalOceanV2($adapter);
         $droplet = $digitalocean->droplet();
 
-        $droplet->delete($id);
+        try {
+            $droplet->delete($id);
+            Droplet::where('doid',$id)->delete();
+        }catch(\Exception $e){
+            return redirect('droplets')->withError('Looks likes there is some error. Try in some minutes');
+        }
 
         return redirect('/droplets')->withMessage('Deleted!');
 

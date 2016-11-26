@@ -30,7 +30,7 @@ Route::get('/dologin', function () {
 });
 
 Route::get('/afterdo', function(Request $request) {
-	$data = Socialite::driver('digitalocean')->user();
+	$data = Socialite::driver('digitalocean')->stateless()->user();
 	$user = App\User::where('email', $data->email)->first();
 
 	if( is_null($user) ){
