@@ -12,7 +12,7 @@
 	chmod a+x composer.phar
 	cd /var/www/html
 	rm -rf *
-	git clone {{ $repo }} .
+	git clone {!! $repo !!} .
 	composer.phar install
 @endtask
 
@@ -24,7 +24,7 @@
 @endtask
 
 
-@task('lemp', ['on' => 'web'])
+@task('django', ['on' => 'web'])
 	cd /usr/share/nginx/html
 	git clone $repo
 @endtask

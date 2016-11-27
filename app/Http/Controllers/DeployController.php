@@ -111,6 +111,8 @@ class DeployController extends Controller
             $droplet->name = $created->name;
             $droplet->user_id = $user->id;
             $droplet->repo = $manifest->repository;
+            $droplet->app = isset($manifest->app)? $manifest->app : '';
+            $droplet->image = $manifest->image;
 
         $droplet->save();
         $user->save();
@@ -169,7 +171,7 @@ class DeployController extends Controller
         $droplet123 = $droplet->getById($id);
 
         $fp = fopen( public_path()."/logs/$id.txt" ,"w");
-        $data = $this->actualDeploy( $drop->repo, $droplet123->networks[0]->ipAddress ) ;
+        $data = $this->actualDeploy( $drop->repo, $droplet123->networks[0]->ipAddress, $drop->image, $drop->app ) ;
         fwrite($fp, json_encode($data) );
         fclose($fp);
 
@@ -178,10 +180,15 @@ class DeployController extends Controller
 
     }
 
-    public function actualDeploy( $repo, $ip ){
+    public function actualDeploy( $repo, $ip, $image, $app ){
 
         $envoy = new \App\Envoy;
-        return $envoy->run("lamp --repo=$repo --ip=$ip");
+        $out = '';
+        if($image == 'lamp') 
+            $out .= json_encode( $envoy->run("lamp --repo=$repo --ip=$ip") );
+        // if($app == 'laravel')
+        //     $out .= json_encode( $envoy->run("laravel --repo=$repo --ip=$ip") );
+        return $out;
     }
 
     public function getScript( $image, $repo )
