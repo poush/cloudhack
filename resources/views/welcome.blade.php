@@ -106,7 +106,7 @@
 
                      <br>
                     <div class="links">
-                    <a href="../documentation">Documentation</a>
+                    <a href="http://ipiyush.com/docu/">Documentation</a>
                     <a href="https://github.com/poush/cloudhack" target="blank">GitHub</a>
                     </div>
                 </div>
