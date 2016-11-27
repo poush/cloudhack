@@ -11,7 +11,7 @@ class Envoy
     {
         $result = [];
 
-        $process = new Process('~/.config/composer/bin/envoy run '. $task);
+        $process = new Process('~/.config/composer/vendor/bin/envoy run '. $task);
         // $process = new Process('~/.composer/vendor/bin/envoy run '. $task);
         $process->setTimeout(3600);
         $process->setIdleTimeout(300);
